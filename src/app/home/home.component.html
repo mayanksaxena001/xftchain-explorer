@@ -1,0 +1,44 @@
+<!-- Block Content -->
+<div *ngIf="isConnected" class="content">
+  <div class="card" *ngFor="let block of blocks">
+    <div class="block-img">
+      <img width="60px" height="50px" src="assets/block.svg">
+    </div>
+    <div class="block">
+      <label>Block</label>
+      <div>
+        <a href="/block/{{ block.number }}">{{ block.number }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Block Hash</label>
+      <div class="hash">
+        <a href="/block/{{ block.number }}">{{ block.hash }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Miner</label>
+      <div class="hash">
+        <a href="/address/{{ block.miner }}">{{ block.miner }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Txn Count</label>
+      <div>
+        <a href="/transactions?blockNum={{ block.number }}">{{ block.transactions.length }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Size</label>
+      <div>
+        {{ block.size }}
+      </div>
+    </div>
+    <div class="block">
+      <label>Time</label>
+      <div>
+        {{ block.timestamp }}
+      </div>
+    </div>
+  </div>
+</div>

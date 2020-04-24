@@ -1,0 +1,17 @@
+  <div class="main">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+      <img (click)="homepage()" src="assets/xft.svg" width="50px" height="50px">
+      <span>XFT BLOCKCHAIN</span>
+      <div class="spacer">
+        <input [disabled]='!isConnected' type="search" placeholder="Search for Blocks , Addressess and  Transactions"
+          style="width: 100%;">
+      </div>
+      <div title="{{getText()}}" class="status" [ngClass]="isConnected ?
+              'connected' : 'notconnected'">
+      </div>
+    </div>
+    <div class="router">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

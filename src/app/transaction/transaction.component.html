@@ -1,0 +1,50 @@
+<div class="main-block">
+  <div class="inner-block">
+    <label>Transaction Hash</label>
+    <a>{{ transaction.hash }}</a>
+  </div>
+  <div class="inner-block">
+    <label>Block Hash</label>
+    <a href="/block/{{transaction.blockNumber }}">{{ transaction.blockHash }}</a>
+  </div>
+  <div class="inner-block">
+    <label>Block Number </label>
+    <a href="/block/{{transaction.blockNumber }}">{{ transaction.blockNumber }}</a>
+  </div>
+  <div class="inner-block">
+    <label>From </label>
+    <a href="/address/{{transaction.from }}">{{ transaction.from}}</a>
+  </div>
+  <div class="inner-block">
+    <label>To </label>
+    <a href="/address/{{transaction.to }}">{{ transaction.to}}</a>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Cost </label>
+    <label>{{transaction.txPrice}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Value </label>
+    <label>{{transaction.value}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Gas </label>
+    <label>{{transaction.gas}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Gas Price </label>
+    <label>{{transaction.gasPrice}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Nonce </label>
+    <label>{{transaction.nonce}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Time </label>
+    <label>{{transaction.timestamp}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Input Data </label>
+    <label>{{transaction.input}}</label>
+  </div>
+</div>

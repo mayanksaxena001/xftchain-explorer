@@ -1,0 +1,96 @@
+<div class="main-block">
+  <div class="inner-block">
+    <label>Block Hash</label>
+    <label class="hash">{{ block.hash }}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block</label>
+    <label>{{block.number}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Timestamp</label>
+    <label>{{block.timestamp}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Size</label>
+    <label>{{block.size}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Miner</label>
+    <a href="/address/{{ block.miner }}">{{ block.miner }}</a>
+  </div>
+  <div class="inner-block">
+    <label>Transaction Count</label>
+    <label>{{transactions.length}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Difficulty</label>
+    <label>{{block.difficulty}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Total Difficulty</label>
+    <label>{{block.totalDifficulty}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Gas Limit</label>
+    <label>{{block.gasLimit}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Gas Used</label>
+    <label>{{block.gasUsed}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Parent Hash</label>
+    <label class="hash">{{ block.parentHash }}</label>
+  </div>
+  <div class="inner-block">
+    <label>Block Nonce</label>
+    <label>{{block.nonce}}</label>
+  </div>
+  <div class="inner-block">
+    <label>Sha3Uncles</label>
+    <label class="hash">{{block.sha3Uncles}}</label>
+  </div>
+  <div class="inner-block">
+    <label>State Root</label>
+    <label class="hash">{{block.stateRoot}}</label>
+  </div>
+  <div class="heading-background">
+    <label> Transactions</label>
+  </div>
+  <div class="card" *ngFor="let transaction of transactions">
+    <div class="block-img">
+      <img width="60px" height="50px" src="assets/transaction.svg">
+    </div>
+    <div class="block">
+      <label>Transaction Hash</label>
+      <div class="hash tx">
+        <a href="/transaction/{{ transaction.hash }}">{{ transaction.hash }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>From </label>
+      <div class="hash tx">
+        <a href="/address/{{transaction.from }}">{{ transaction.from}}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>To </label>
+      <div class="hash tx">
+        <a href="/address/{{transaction.to }}">{{ transaction.to}}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Transaction Cost </label>
+      <label>{{transaction.txPrice}}</label>
+    </div>
+    <div class="block">
+      <label>Transaction Value </label>
+      <label>{{transaction.value}}</label>
+    </div>
+    <div class="block">
+      <label>Time </label>
+      <label>{{transaction.timestamp}}</label>
+    </div>
+  </div>
+</div>

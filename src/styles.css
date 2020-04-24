@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+a {
+  /* width: 30px; */
+  color: #00b38f;
+  background-color: transparent;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}

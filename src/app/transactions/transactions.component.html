@@ -1,0 +1,38 @@
+<!-- Transactions -->
+<div *ngIf="isConnected" class="content">
+  <div class="card" *ngFor="let transaction of transactions">
+    <div class="block-img">
+      <img width="60px" height="50px" src="assets/transaction.svg">
+    </div>
+    <div class="block">
+      <label>Transaction Hash</label>
+      <div class="hash">
+        <a href="/transaction/{{ transaction.hash }}">{{ transaction.hash }}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>From </label>
+      <div class="hash">
+        <a href="/address/{{transaction.from }}">{{ transaction.from}}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>To </label>
+      <div class="hash">
+        <a href="/address/{{transaction.to }}">{{ transaction.to}}</a>
+      </div>
+    </div>
+    <div class="block">
+      <label>Transaction Cost </label>
+      <label>{{transaction.txPrice}}</label>
+    </div>
+    <div class="block">
+      <label>Transaction Value </label>
+      <label>{{transaction.value}}</label>
+    </div>
+    <div class="block">
+      <label>Time </label>
+      <label>{{transaction.timestamp}}</label>
+    </div>
+  </div>
+</div>

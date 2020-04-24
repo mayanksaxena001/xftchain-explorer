@@ -1,0 +1,29 @@
+.main-block {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.inner-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 35px;
+  background-color: #fafafa;
+  margin-bottom: 10px;
+  padding: 8px;
+  color: black;
+  flex: 1 auto;
+  flex-flow: column;
+  word-wrap: anywhere;
+}
+
+.hash {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #00b38f;
+  background-color: transparent;
+}
