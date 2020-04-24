@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.isConnected = await this.web3Service.isConnected();
       this.blocks = await this.web3Service.getBlocks();
       let blockFilter = this.web3Service.filterLatestBlock();
-      blockFilter.watch(this.subscription);
+      // blockFilter.watch(this.subscription);
     } catch (error) {
       console.log(error);
     }

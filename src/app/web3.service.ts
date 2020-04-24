@@ -37,7 +37,7 @@ export class Web3Service {
     let MAX_BLOCKS = 15;
     let blockNum = parseInt(this.web3.eth.blockNumber, 10);
     if (blockNum > 0) {
-      for (var i = blockNum; (MAX_BLOCKS - i) > 0; i--) {
+      for (var i = blockNum; i >= 0; i--) {
         blocks.push(await this.getBlock(i));
       }
     }
