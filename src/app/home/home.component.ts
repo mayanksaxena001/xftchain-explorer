@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Web3Service } from '../web3.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { Web3Service } from '../web3.service';
 export class HomeComponent implements OnInit, OnDestroy {
   blocks: any = [];
   isConnected: Boolean = false;
+  subscription: Subscription;
   constructor(private web3Service: Web3Service) { }
 
   ngOnInit(): void {
@@ -16,10 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.web3Service.getWeb3().eth.unsubscribe(function (error, success) {
-    //   if (success)
-    //     console.log('Successfully unsubscribed!');
-    // });
+    this.subscription.unsubscribe();
   }
 
   async initData() {
@@ -27,18 +26,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       //TODO: need to remove for latest versions
       this.isConnected = await this.web3Service.isConnected();
       this.blocks = await this.web3Service.getBlocks();
-      let blockFilter = this.web3Service.filterLatestBlock();
-      // blockFilter.watch(this.subscription);
+      this.subscription = this.web3Service.updatePendingBlocks.subscribe(blocks => {
+        if (blocks) this.blocks = blocks;
+      });
     } catch (error) {
       console.log(error);
     }
   }
-  subscription(err: any, result: any): any {
-    if (err) console.log(err);
-    else {
-      var block = this.web3Service.getBlock(result.blockNumber);
-      this.blocks.push(block);
-    }
-  }
-
 }

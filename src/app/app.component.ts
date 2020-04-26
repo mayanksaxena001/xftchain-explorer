@@ -29,7 +29,22 @@ export class AppComponent implements OnInit {
     return this.isConnected ? 'Server Connected' : 'Server Offline'
   }
 
+  searchInput(value: string) {
+    if (!value) return;
+    if (this.web3Service.validate_txhash(value)) {
+      this.router.navigateByUrl('/transaction/' + value);
+    }
+    else if (this.web3Service.validate_addr(value)) {
+      this.router.navigateByUrl('/address/' + value);
+    }
+    else if (this.web3Service.validate_block(value)) {
+      this.router.navigateByUrl('/block/' + value);
+    } else {
+      this.homepage();
+    }
+  }
+
   homepage() {
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
   }
 }

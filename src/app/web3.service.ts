@@ -1,20 +1,34 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnDestroy, OnInit } from '@angular/core';
 import Web3 from 'web3';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Web3Service {
-  private web3: any;
-  private currentProvider: any;
-  constructor(@Inject('BASE_API_URL') private baseUrl: string) {
-    // if (typeof window.web3 !== 'undefined') {
-    //   this.web3 = new Web3(window.web3.currentProvider)
-    // } else {
-    // }
-    console.log('Inside Web3Service...', this.baseUrl);
-    this.currentProvider = new Web3.providers.HttpProvider(this.baseUrl);
-    this.web3 = new Web3(this.currentProvider);
+export class Web3Service implements OnDestroy {
+  latestBlockNum: number = undefined;
+  private pendingBlocksSource = new Subject<any>();
+  updatePendingBlocks = this.pendingBlocksSource.asObservable();
+  subscription: any;
+
+  constructor(@Inject('WEB3') private web3: Web3) {
+    console.log('Inside Web3Service...');
+    this.latestBlockNum = this.web3.eth.blockNumber;
+    setInterval(() => this.updateBlocks(), 10000);
+    // this.filterLatestBlock();
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  async updateBlocks() {
+    const blockNum = this.web3.eth.blockNumber;
+    if (this.latestBlockNum === blockNum) {
+      return;
+    }
+    this.latestBlockNum = blockNum;
+    let blocks = await this.getBlocks();
+    this.pendingBlocksSource.next(blocks);
   }
 
   async isConnected() {
@@ -28,17 +42,14 @@ export class Web3Service {
     return this.web3.eth.getBalance(address);
   }
 
-  getWeb3() {
-    return this.web3;
-  }
-
+  //TODO: get limited blocks
   async getBlocks() {
     let blocks = [];
     let MAX_BLOCKS = 15;
-    let blockNum = parseInt(this.web3.eth.blockNumber, 10);
+    let blockNum = this.latestBlockNum;
     if (blockNum > 0) {
-      for (var i = blockNum; i >= 0; i--) {
-        blocks.push(await this.getBlock(i));
+      for (var i = 0; i < MAX_BLOCKS; i++) {
+        blocks.push(await this.getBlock(blockNum - i));
       }
     }
     return blocks;
@@ -83,7 +94,16 @@ export class Web3Service {
     return _block;
   }
 
-  filterLatestBlock() {
-    return this.web3.eth.filter({ toBlock: 'latest' });
+  validate_txhash(addr: string) {
+    return /^0x([A-Fa-f0-9]{64})$/.test(addr);
+  }
+
+  validate_addr(addr: string) {
+    return this.web3.isAddress(addr);
+  }
+
+  validate_block(value) {
+    const blockNum = Number.isInteger(parseInt(value));
+    return this.web3.eth.blockNumber >= blockNum;
   }
 }

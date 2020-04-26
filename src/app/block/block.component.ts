@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Web3Service } from '../web3.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { Web3Service } from '../web3.service';
 export class BlockComponent implements OnInit {
   block: any = [];
   transactions: any = [];
-  constructor(private route: ActivatedRoute, private web3Service: Web3Service) {
+  constructor(private route: ActivatedRoute, private web3Service: Web3Service, private router: Router) {
     console.log('Inside BlockComponent');
   }
 
@@ -22,8 +22,13 @@ export class BlockComponent implements OnInit {
 
   }
   async initBlock(blockNumber: string) {
-    this.block = await this.web3Service.getBlock(blockNumber);
-    this.transactions = await this.web3Service.getTransactions(blockNumber);
+    try {
+      this.block = await this.web3Service.getBlock(blockNumber);
+      this.transactions = await this.web3Service.getTransactions(blockNumber);
+    } catch (error) {
+      console.error(error);
+      this.router.navigateByUrl('/');
+    }
   }
 
 }
