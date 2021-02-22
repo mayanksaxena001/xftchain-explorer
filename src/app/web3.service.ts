@@ -6,10 +6,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class Web3Service implements OnDestroy {
+  
+  MAX_BLOCKS:number = 10;
   latestBlockNum: number = undefined;
   private pendingBlocksSource = new Subject<any>();
   updatePendingBlocks = this.pendingBlocksSource.asObservable();
   subscription: any;
+  networks: {name:String,url:String}[];
 
   constructor(@Inject('WEB3') private web3: Web3) {
     console.log('Inside Web3Service...');
@@ -21,6 +24,9 @@ export class Web3Service implements OnDestroy {
   ngOnDestroy(): void {
   }
 
+  async getLatestblockNumber(){
+    return this.latestBlockNum;
+  }
   async updateBlocks() {
     const blockNum = this.web3.eth.blockNumber;
     if (this.latestBlockNum === blockNum) {
@@ -31,8 +37,16 @@ export class Web3Service implements OnDestroy {
     this.pendingBlocksSource.next(blocks);
   }
 
+  async getAvailableNetworkList(){
+    this.networks =  [{ name: "XFT Chain", url: "https://api.xftchain.club/" }, { name: "Localhost", url: "http://localhost:8080" }, { name: "Infura Mainnet", url: 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50' }];
+    return this.networks;
+  }
+
   async isConnected() {
-    return await this.web3.isConnected();
+    let isConnected = await this.web3.isConnected();
+    if(isConnected) console.log('Connected to network');
+    else console.log('disconnected from network');
+    return isConnected;
   }
 
   getBalance(address: string): any {
@@ -45,10 +59,9 @@ export class Web3Service implements OnDestroy {
   //TODO: get limited blocks
   async getBlocks() {
     let blocks = [];
-    let MAX_BLOCKS = 15;
     let blockNum = this.latestBlockNum;
     if (blockNum > 0) {
-      for (var i = 0; i < MAX_BLOCKS; i++) {
+      for (var i = 0; i < this.MAX_BLOCKS; i++) {
         blocks.push(await this.getBlock(blockNum - i));
       }
     }
@@ -105,5 +118,23 @@ export class Web3Service implements OnDestroy {
   validate_block(value) {
     const blockNum = Number.isInteger(parseInt(value));
     return this.web3.eth.blockNumber >= blockNum;
+  }
+
+  async changeNetwork(selectedNetwork: any) {
+    if(selectedNetwork){
+      try {
+        if(this.networks){
+          let network=this.networks.find(e => e.name==selectedNetwork);
+          if(network){
+            const currentProvider = new Web3.providers.HttpProvider(network.url);
+            // ('ethereum' in window) ? window['ethereum'] : 
+            const provider = currentProvider;
+            this.web3 =  await new Web3(provider);
+          }
+        }
+      } catch (err) {
+        throw new Error('Non-Ethereum browser detected. You should consider trying Mist or MetaMask!');
+      }
+    }
   }
 }

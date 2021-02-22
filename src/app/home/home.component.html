@@ -42,3 +42,14 @@
     </div>
   </div>
 </div>
+<div class="pagination">
+  <div class="block" (click)="onNextClick()"><button [disabled]="pageList.length - pageNumber - 1 < 0">Next</button> </div>
+  <div class="block" (click)="onFirstClick()"><button [disabled]="pageNumber < 1">First</button>
+  </div>
+  <!-- <div class="block" *ngFor="let page of pageList">
+    <button (click)="onPageClick(page)">{{page}}</button>
+  </div> -->
+  <div class="block" (click)="onLastClick()"><button [disabled]="pageNumber < 1">Last</button>
+  </div>
+  <div class="block" (click)="onPreviousClick()"><button [disabled]="pageNumber <= 1">Previous</button> </div>
+</div>

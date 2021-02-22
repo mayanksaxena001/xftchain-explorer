@@ -1,10 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-let baseUrl = 'https://api.xftchain.club/';  
+let baseUrl = 'https://api.xftchain.club/'; 
+let infuraURL = 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50';
 export const environment = {
   production: false,
-  baseUrl
+  baseUrl, infuraURL
 };
 
 /*

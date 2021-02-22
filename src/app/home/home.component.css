@@ -3,9 +3,9 @@
   flex-direction: column;
   overflow-y: auto;
   scrollbar-color: #00b38f transparent;
-  height: 990px;
+  /* height: 990px; */
   margin-top: 10px;
-  padding-right: 10px;
+  /* padding-right: 10px; */
 }
 
 .card {
@@ -14,7 +14,8 @@
   background-color: #fafafa;
   /* height: 100%; */
   width: 100%;
-  margin-bottom: 10px;
+  border-bottom: 1px solid;
+  /* margin-bottom: 1%; */
   /* padding: 16px; */
   display: flex;
   flex-direction: row;
@@ -26,7 +27,7 @@
 
 .block-img {
   padding: 10px;
-  background-color: #00b38f;
+  /* background-color: #00b38f; */
   align-self: center;
   display: flex;
   width: 60px;
@@ -49,3 +50,30 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.pagination {
+  /* height: 100%; */
+  /* margin-bottom: 1%; */
+  /* padding: 16px; */
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+button {
+  color: #00b38f;
+  background: transparent;
+  cursor: pointer;
+  border: 2px solid;
+}
+button:disabled{
+  color:grey;
+  background: transparent;
+  cursor: auto;
+  border: 2px solid;
+}
+
+button:focus {
+  color: black;
+}
+

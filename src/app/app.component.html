@@ -1,18 +1,25 @@
-  <div class="main">
-    <!-- Toolbar -->
-    <div class="toolbar" role="banner">
-      <img (click)="homepage()" src="assets/xft.svg" width="50px" height="50px">
-      <span>XFT BLOCKCHAIN</span>
-      <div class="spacer">
-        <input #searchText [disabled]='!isConnected' type="search"
-          placeholder="Search for Blocks , Address and Transactions " style="width: 100%;"
-          (keyup.enter)='searchInput(searchText.value)'>
-      </div>
-      <div title="{{getText()}}" class="status" [ngClass]="isConnected ?
-              'connected' : 'notconnected'">
-      </div>
+<div class="main">
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <img (click)="homepage()" src="assets/xft.svg" width="50px" height="50px">
+    <span>XFT BLOCKCHAIN</span>
+    <div class="spacer">
+      <input #searchText [disabled]='!isConnected' type="search"
+        placeholder="Search for Blocks , Address and Transactions " style="width: 100%;"
+        (keyup.enter)='searchInput(searchText.value)'>
     </div>
-    <div class="router">
-      <router-outlet></router-outlet>
+    <div>
+      <select [(ngModel)]="selectedNetwork" name="selectedNetwork" (change)='selectNetwork(selectedNetwork)'>
+        <option disabled value="">Select a Neiwork</option>
+        <option *ngFor="let network of networks" [ngValue]="network.name">{{network.name}}</option>
+      </select>
+    </div>
+    <div title="{{getText()}}" class="status" [ngClass]="isConnected ?
+  'connected' : 'notconnected'">
     </div>
   </div>
+  <div class="router" >
+    <div class="preloader" [hidden]="!waiting"></div>
+    <router-outlet ></router-outlet>
+  </div>
+</div>

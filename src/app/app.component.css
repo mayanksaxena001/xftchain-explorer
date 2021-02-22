@@ -14,7 +14,7 @@
      "Apple Color Emoji",
      "Segoe UI Emoji",
      "Segoe UI Symbol";
-   font-size: 14px;
+   font-size: 12px;
    display: flex;
    height: 100%;
    width: 100%;
@@ -44,7 +44,7 @@
    background-color: #00b38f;
    color: white;
    font-weight: 600;
-   height: 60px;
+   /* height: 60px; */
  }
 
  .toolbar img:hover {
@@ -75,6 +75,13 @@
    justify-content: center;
    margin-top: 16px;
    flex-direction: column;
+ }
+
+ select {
+     color: #00b38f;
+     background: white;
+     cursor: pointer;
+     border: 2px solid;
  }
 
  /* .toolbar #twitter-logo {
