@@ -66,6 +66,8 @@ export class AppComponent implements OnInit {
     this.waiting = this.isConnected ? false:true;
     if(this.isConnected){
       this.selectedNetwork = this.networks.find(e => e.url == environment.baseUrl).name;
+    }else{
+      alert('Connect to different network..');
     }
   }
 }

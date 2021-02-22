@@ -34,7 +34,7 @@ export const WEB3 = new InjectionToken<Web3>('web3');
     provide: 'WEB3',
     useFactory: () => {
       try {
-        const currentProvider = new Web3.providers.HttpProvider(environment.baseUrl);
+        const currentProvider =  new Web3.providers.HttpProvider(environment.baseUrl);
         // ('ethereum' in window) ? window['ethereum'] : 
         const provider = currentProvider;
         return new Web3(provider);

@@ -16,14 +16,19 @@ export class Web3Service implements OnDestroy {
 
   constructor(@Inject('WEB3') private web3: Web3) {
     console.log('Inside Web3Service...');
-    this.latestBlockNum = this.web3.eth.blockNumber;
-    setInterval(() => this.updateBlocks(), 10000);
+    try{
+      this.latestBlockNum = this.web3.eth.blockNumber;
+      setInterval(() => this.updateBlocks(), 10000);
+    }catch(e){console.error(e);}
     // this.filterLatestBlock();
   }
 
   ngOnDestroy(): void {
   }
 
+  async setBlockNumber(){
+    
+  }
   async getLatestblockNumber(){
     return this.latestBlockNum;
   }
@@ -38,7 +43,7 @@ export class Web3Service implements OnDestroy {
   }
 
   async getAvailableNetworkList(){
-    this.networks =  [{ name: "XFT Chain", url: "https://api.xftchain.club/" }, { name: "Localhost", url: "http://localhost:8545" }, { name: "Infura Mainnet", url: 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50' }];
+    this.networks = [{ name: "XFT Chain", url: "https://api.xftchain.club/" }, { name: "Localhost", url: "http://localhost:8545" }, { name: "Infura Mainnet", url: 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50' }];
     return this.networks;
   }
 
