@@ -38,7 +38,7 @@ export class Web3Service implements OnDestroy {
   }
 
   async getAvailableNetworkList(){
-    this.networks =  [{ name: "XFT Chain", url: "https://api.xftchain.club/" }, { name: "Localhost", url: "http://localhost:8080" }, { name: "Infura Mainnet", url: 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50' }];
+    this.networks =  [{ name: "XFT Chain", url: "https://api.xftchain.club/" }, { name: "Localhost", url: "http://localhost:8545" }, { name: "Infura Mainnet", url: 'https://mainnet.infura.io/v3/bd04aa365dfb4509a573a8ccdd6b3b50' }];
     return this.networks;
   }
 
@@ -130,6 +130,7 @@ export class Web3Service implements OnDestroy {
             // ('ethereum' in window) ? window['ethereum'] : 
             const provider = currentProvider;
             this.web3 =  await new Web3(provider);
+            this.updateBlocks();
           }
         }
       } catch (err) {

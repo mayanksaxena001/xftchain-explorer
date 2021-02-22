@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
       this.networks = await this.web3Service.getAvailableNetworkList();
       await this.checkNetwork();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
